@@ -31,39 +31,52 @@ commands:
             #  Add revert code here. You can find this in the Getting Started section.
               exit 1
             fi
-            
-jobs:
-  build-frontend:
+
+executors:
+  node-executor:
     docker:
       - image: circleci/node:13.8.0
+
+jobs:
+  build-frontend:
+    executor: node-executor
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: frontend-deps-{{ checksum "frontend/package-lock.json" }}
+      - run:
+          name: Install dependencies
+          command: |
+            cd frontend
+            npm install
       - run:
           name: Build front-end
           command: |
-            # Your code here
-            exit 1
+            cd frontend
+            npm run build
       - save_cache:
           paths: [frontend/node_modules]
-          key: frontend-build
+          key: frontend-deps-{{ checksum "frontend/package-lock.json" }}
 
   build-backend:
-    docker:
-      - image: circleci/node:13.8.0
+    executor: node-executor
     steps:
       - checkout
       - restore_cache:
-          keys: [backend-build]
+          keys: backend-deps-{{ checksum "backend/package-lock.json" }}
       - run:
-          name: Back-end build
+          name: Install dependencies
           command: |
-             # Your code here
-             exit 1
+            cd backend
+            npm install
+      - run:
+          name: Build back-end
+          command: |
+            cd backend
+            npm run build
       - save_cache:
           paths: [backend/node_modules]
-          key: backend-build
+          key: backend-deps-{{ checksum "backend/package-lock.json" }}
 
   test-frontend:
     docker:
