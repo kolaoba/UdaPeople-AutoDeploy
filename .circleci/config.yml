@@ -269,8 +269,7 @@ jobs:
       - install_awscli
       - install_nodejs
       - restore_cache:
-          keys:
-            - backend-deps-{{ checksum "backend/package-lock.json" }}
+          keys: [backend-deps]
       - run:
           name: Run migrations
           command: |
@@ -340,8 +339,7 @@ jobs:
       - install_awscli
       - install_nodejs
       - restore_cache:
-          keys:
-            - backend-deps-{{ checksum "backend/package-lock.json" }}
+          keys: [backend-deps]
       # Add ssh keys with fingerprint
       - add_ssh_keys:
           fingerprints:
@@ -369,7 +367,7 @@ jobs:
           command: |
             # your code here
             export TYPEORM_MIGRATIONS_DIR=./migrations
-            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity*{.ts,.js}
             export TYPEORM_MIGRATIONS=./migrations/*.ts
 
             cd .circleci/ansible
