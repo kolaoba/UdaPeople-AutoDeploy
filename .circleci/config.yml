@@ -238,8 +238,8 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure      
+            - project/.circleci/ansible/inventory.txt
 
   configure-infrastructure:
     executor: python-executor
@@ -259,8 +259,8 @@ jobs:
             cat inventory.txt
 
             ansible-playbook -i inventory.txt configure-server.yml
-      - destroy-environment
       # Here's where you will add some code to rollback on failure      
+      - destroy-environment
 
   run-migrations:
     executor: python-executor
@@ -289,9 +289,9 @@ jobs:
             else
               echo "No migrations are pending" 
             fi
+#      # Here's where you will add some code to rollback on failure      
       - destroy-environment
       - revert-migrations
-#      # Here's where you will add some code to rollback on failure      
 
   deploy-frontend:
     executor: python-executor
@@ -327,9 +327,9 @@ jobs:
             cd frontend
             npm run build
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+       # Here's where you will add some code to rollback on failure      
       - destroy-environment
       - revert-migrations
-       # Here's where you will add some code to rollback on failure      
                     
   deploy-backend:
     executor: python-executor
@@ -375,9 +375,9 @@ jobs:
             cd .circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
+      # Here's where you will add some code to rollback on failure  
       - destroy-environment
       - revert-migrations
-#       # Here's where you will add some code to rollback on failure  
 
 #   smoke-test:
 #     docker:
