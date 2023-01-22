@@ -29,4 +29,4 @@
 
   roles:
     - configure-server
-    - configure-prometheus
+    - configure-prometheus-node-exporter
