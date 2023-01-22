@@ -442,7 +442,7 @@ jobs:
       - destroy-environment
       - revert-migrations  
 
-cleanup:
+  cleanup:
     executor: python-executor
     steps:
       # Checkout code from git
