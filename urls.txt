@@ -1,16 +1,5 @@
 [URL01]
 https://github.com/kolaoba/UdaPeople-AutoDeploy
 
-
 [URL02]
-
-
-[URL03]
-
-
-[URL04]
-
-
-[URL05]
-
-
+http://udapeople-b62dd98.s3-website-us-east-1.amazonaws.com/#/employees
